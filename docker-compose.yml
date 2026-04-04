@@ -1,0 +1,20 @@
+version: '3.9'
+
+services:
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    container_name: portfolio-client
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./client/src:/app/src
+      - ./client/public:/app/public
+      - /app/node_modules
+    environment:
+      - VITE_APP_NAME=Portfolio Aboubacar
+
+networks:
+  default:
+    name: portfolio-network
