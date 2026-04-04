@@ -36,7 +36,7 @@ export default function HeroSection() {
                 <div className="flex justify-center md:justify-end">
                     <div className="relative">
                         <div className="w-72 h-72 md:w-80 md:h-80 rounded-2xl overflow-hidden border-4 border-violet-500/30 shadow-2xl shadow-violet-500/20">
-                            <img src="/avatar.jpeg" alt="Aboubacar Sidiki Doumbouya" className="w-full h-full object-cover" />
+                            <img src="/avatar.jpeg" alt="Aboubacar Sidiki Doumbouya" className="w-full h-full object-cover object-top" />
                         </div>
                         <div className="absolute -bottom-4 -left-4 bg-violet-600 text-white text-xs font-semibold px-4 py-2 rounded-lg shadow-lg">
                             🚀 Full Stack Developer
