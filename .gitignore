@@ -2,4 +2,7 @@ node_modules
 dist
 .env
 .DS_Store
-*.log
+*.logserver/data/*.db
+server/data/*.db-shm
+server/data/*.db-wal
+client/vite.config.js.timestamp*
