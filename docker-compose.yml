@@ -1,4 +1,16 @@
 services:
+  server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: portfolio-server
+    ports:
+      - "3001:3001"
+    environment:
+      - PORT=3001
+    networks:
+      - portfolio-network
+
   client:
     build:
       context: ./client
@@ -6,13 +18,14 @@ services:
     container_name: portfolio-client
     ports:
       - "5173:5173"
-    volumes:
-      - ./client/src:/app/src
-      - ./client/public:/app/public
-      - /app/node_modules
     environment:
       - VITE_APP_NAME=Portfolio Aboubacar
+      - VITE_SERVER_URL=http://localhost:3001
+    depends_on:
+      - server
+    networks:
+      - portfolio-network
 
 networks:
-  default:
-    name: portfolio-network
+  portfolio-network:
+    driver: bridge

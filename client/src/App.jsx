@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar.jsx';
 import Footer from './components/Footer.jsx';
+import ChatBox from './components/ChatBox.jsx';
 import Home from './pages/Home.jsx';
 import NotFound from './pages/NotFound.jsx';
 
@@ -24,6 +25,7 @@ export default function App() {
                 <Route path="*" element={<NotFound />} />
             </Routes>
             <Footer />
+            <ChatBox />
         </div>
     );
 }

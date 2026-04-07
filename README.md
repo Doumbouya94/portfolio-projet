@@ -1,4 +1,4 @@
-# Portfolio Professionnel — Aboubacar Sidiki Doumbouya
+# Portfolio Professionnel - Aboubacar Sidiki Doumbouya
 
 Portfolio professionnel fullstack construit avec React, Tailwind CSS et Docker.
 
@@ -21,4 +21,4 @@ Ouvre http://localhost:5173
 Aboubacar Sidiki Doumbouya
 Email : sidiki940917@gmail.com
 GitHub : https://github.com/Doumbouya94
-Collège LaSalle — DEC Techniques de l'informatique
+Collège LaSalle - DEC Techniques de l'informatique
