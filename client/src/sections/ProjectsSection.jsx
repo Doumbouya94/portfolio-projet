@@ -1,7 +1,9 @@
-import { PROJECTS } from '../utils/constants.js';
+import { useApi } from '../hooks/useApi.js';
 import ProjectCard from '../components/ProjectCard.jsx';
 
 export default function ProjectsSection() {
+    const { data: projects, loading, error } = useApi('/api/projects');
+
     return (
         <section id="projects" className="py-20 px-6 bg-zinc-50 dark:bg-zinc-900">
             <div className="max-w-6xl mx-auto">
@@ -14,16 +16,34 @@ export default function ProjectsSection() {
                         Une sélection de projets académiques et personnels réalisés durant ma formation.
                     </p>
                 </div>
-                <div className="grid md:grid-cols-2 gap-6">
-                    {PROJECTS.map(project => (
-                        <ProjectCard key={project.id} project={project} />
-                    ))}
-                </div>
-                <div className="text-center mt-10">
-                    <a href="https://github.com/Doumbouya94" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 border border-zinc-200 dark:border-zinc-700 hover:border-violet-500 text-zinc-600 dark:text-zinc-400 hover:text-violet-500 font-semibold px-6 py-3 rounded-lg transition-colors">
-                        Voir plus sur GitHub ↗
-                    </a>
-                </div>
+
+                {loading && (
+                    <div className="text-center py-20 text-slate-600">
+                        <div className="text-4xl mb-2 animate-spin">⚙️</div>
+                        <p className="text-zinc-500">Chargement des projets...</p>
+                    </div>
+                )}
+
+                {error && (
+                    <div className="text-center py-10 text-red-400">
+                        <p>⚠️ Erreur de chargement des projets</p>
+                    </div>
+                )}
+
+                {projects && (
+                    <>
+                        <div className="grid md:grid-cols-2 gap-6">
+                            {projects.map(project => (
+                                <ProjectCard key={project.id} project={project} />
+                            ))}
+                        </div>
+                        <div className="text-center mt-10">
+                            <a href="https://github.com/Doumbouya94" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 border border-zinc-200 dark:border-zinc-700 hover:border-violet-500 text-zinc-600 dark:text-zinc-400 hover:text-violet-500 font-semibold px-6 py-3 rounded-lg transition-colors">
+                                Voir plus sur GitHub ↗
+                            </a>
+                        </div>
+                    </>
+                )}
             </div>
         </section>
     );
