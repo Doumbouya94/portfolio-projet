@@ -1,7 +1,6 @@
 const express = require("express");
 const http    = require("http");
 const cors    = require("cors");
-const path    = require("path");
 const { Server } = require("socket.io");
 
 // ─── Init ────────────────────────────────────
@@ -12,6 +11,13 @@ app.use(express.json());
 
 // ─── Base de données ─────────────────────────
 require('./config/db.js');
+
+// ─── Seed automatique ────────────────────────
+try {
+    require('./seed/seed.js');
+} catch (err) {
+    console.log('Seed déjà effectué ou erreur:', err.message);
+}
 
 // ─── Routes API REST ─────────────────────────
 app.use('/api/auth',     require('./routes/auth.routes.js'));
