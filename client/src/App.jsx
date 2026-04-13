@@ -5,6 +5,7 @@ import Footer from './components/Footer.jsx';
 import ChatBox from './components/ChatBox.jsx';
 import Home from './pages/Home.jsx';
 import NotFound from './pages/NotFound.jsx';
+import VideoChat from './components/VideoChat.jsx';
 
 export default function App() {
     const [darkMode, setDarkMode] = useState(true);
@@ -26,6 +27,7 @@ export default function App() {
             </Routes>
             <Footer />
             <ChatBox />
+            <VideoChat />
         </div>
     );
 }

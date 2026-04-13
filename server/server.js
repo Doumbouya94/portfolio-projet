@@ -3,37 +3,30 @@ const http    = require("http");
 const cors    = require("cors");
 const { Server } = require("socket.io");
 
-// ─── Init ────────────────────────────────────
 require("dotenv").config();
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-// ─── Base de données ─────────────────────────
 require('./config/db.js');
 
-// ─── Seed automatique ────────────────────────
 try {
     require('./seed/seed.js');
 } catch (err) {
     console.log('Seed déjà effectué ou erreur:', err.message);
 }
 
-// ─── Routes API REST ─────────────────────────
 app.use('/api/auth',     require('./routes/auth.routes.js'));
 app.use('/api/projects', require('./routes/projects.routes.js'));
 app.use('/api/skills',   require('./routes/skills.routes.js'));
 app.use('/api/contact',  require('./routes/contact.routes.js'));
 
-// ─── Health check ─────────────────────────────
 app.get('/health', (req, res) => {
     res.json({ status: 'OK', timestamp: new Date().toISOString() });
 });
 
-// ─── Error middleware ─────────────────────────
 app.use(require('./middleware/error.middleware.js'));
 
-// ─── Socket.IO ───────────────────────────────
 const server = http.createServer(app);
 
 const io = new Server(server, {
@@ -48,7 +41,6 @@ const io = new Server(server, {
     },
 });
 
-// ─── Rooms ───────────────────────────────────
 const rooms = {
     "Recrutement": { users: [] },
     "Generale":    { users: [] },
@@ -112,6 +104,38 @@ io.on("connection", (socket) => {
         }
     });
 
+    // ── WebRTC Signalisation ────────────────────
+    socket.on("video-join", ({ room }) => {
+        socket.join(room);
+        socket.currentVideoRoom = room;
+        console.log(`📹 ${socket.id} rejoint la salle vidéo "${room}"`);
+        socket.to(room).emit("video-user-joined", {
+            userId: socket.id,
+            userName: socket.currentUsername || "Visiteur",
+        });
+    });
+
+    socket.on("offer", ({ offer }) => {
+        socket.to(socket.currentVideoRoom).emit("video-offer", {
+            offer,
+            userName: socket.currentUsername || "Visiteur",
+        });
+    });
+
+    socket.on("answer", ({ answer }) => {
+        socket.to(socket.currentVideoRoom).emit("video-answer", { answer });
+    });
+
+    socket.on("ice-candidate", ({ candidate }) => {
+        socket.to(socket.currentVideoRoom).emit("video-ice-candidate", { candidate });
+    });
+
+    socket.on("video-leave", ({ room }) => {
+        socket.leave(room);
+        socket.to(room).emit("video-user-left");
+        console.log(`📹 ${socket.id} a quitté la salle vidéo`);
+    });
+
     socket.on("disconnect", () => {
         const room     = socket.currentRoom;
         const username = socket.currentUsername;
@@ -126,7 +150,6 @@ io.on("connection", (socket) => {
     });
 });
 
-// ─── Démarrage ───────────────────────────────
 const PORT = process.env.PORT || 3001;
 server.listen(PORT, () => {
     console.log(`🚀 Serveur sur http://localhost:${PORT}`);
