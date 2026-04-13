@@ -21,6 +21,12 @@ app.use('/api/projects', require('./routes/projects.routes.js'));
 app.use('/api/skills',   require('./routes/skills.routes.js'));
 app.use('/api/contact',  require('./routes/contact.routes.js'));
 
+// ─── Swagger Documentation ───────────────────
+const swaggerUi   = require('swagger-ui-express');
+const swaggerSpec = require('./config/swagger.js');
+app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
+// ─── Health check ─────────────────────────────
 app.get('/health', (req, res) => {
     res.json({ status: 'OK', timestamp: new Date().toISOString() });
 });
@@ -154,4 +160,5 @@ const PORT = process.env.PORT || 3001;
 server.listen(PORT, () => {
     console.log(`🚀 Serveur sur http://localhost:${PORT}`);
     console.log(`📋 API disponible sur http://localhost:${PORT}/api`);
+    console.log(`📚 Swagger docs : http://localhost:${PORT}/api/docs`);
 });
