@@ -21,12 +21,10 @@ app.use('/api/projects', require('./routes/projects.routes.js'));
 app.use('/api/skills',   require('./routes/skills.routes.js'));
 app.use('/api/contact',  require('./routes/contact.routes.js'));
 
-// ─── Swagger Documentation ───────────────────
 const swaggerUi   = require('swagger-ui-express');
 const swaggerSpec = require('./config/swagger.js');
 app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
-// ─── Health check ─────────────────────────────
 app.get('/health', (req, res) => {
     res.json({ status: 'OK', timestamp: new Date().toISOString() });
 });
@@ -116,6 +114,11 @@ io.on("connection", (socket) => {
         socket.currentVideoRoom = room;
         console.log(`📹 ${socket.id} rejoint la salle vidéo "${room}"`);
         socket.to(room).emit("video-user-joined", {
+            userId: socket.id,
+            userName: socket.currentUsername || "Visiteur",
+        });
+        // Notifier tous les clients connectés (admin)
+        io.emit("incoming-video-call", {
             userId: socket.id,
             userName: socket.currentUsername || "Visiteur",
         });

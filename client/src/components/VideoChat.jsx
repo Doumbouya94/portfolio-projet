@@ -50,6 +50,18 @@ export default function VideoChat() {
         }
     }, [remoteStream]);
 
+    // Démarrer automatiquement si ?videocall=true
+    useEffect(() => {
+        const params = new URLSearchParams(window.location.search);
+        if (params.get('videocall') === 'true') {
+            window.history.replaceState({}, '', '/');
+            setIsOpen(true);
+            setTimeout(() => {
+                startCall();
+            }, 500);
+        }
+    }, []);
+
     // Écouter les événements Socket.IO WebRTC
     useEffect(() => {
         if (!socket) return;
@@ -152,10 +164,10 @@ export default function VideoChat() {
                                         'bg-zinc-500'
                             }`} />
                             <span className="text-white text-sm font-semibold">
-                {callState === 'idle'    && 'Appel Vidéo'}
+                                {callState === 'idle'    && 'Appel Vidéo'}
                                 {callState === 'waiting' && 'En attente...'}
                                 {callState === 'inCall'  && `En appel${remoteUser ? ` avec ${remoteUser}` : ''}`}
-              </span>
+                            </span>
                         </div>
                         <button onClick={() => setIsOpen(false)} className="text-zinc-400 hover:text-white transition-colors">✕</button>
                     </div>

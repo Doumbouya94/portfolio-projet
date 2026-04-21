@@ -3,9 +3,12 @@ import { Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar.jsx';
 import Footer from './components/Footer.jsx';
 import ChatBox from './components/ChatBox.jsx';
+import VideoChat from './components/VideoChat.jsx';
 import Home from './pages/Home.jsx';
 import NotFound from './pages/NotFound.jsx';
-import VideoChat from './components/VideoChat.jsx';
+import Login from './pages/Login.jsx';
+import Admin from './pages/Admin.jsx';
+import ProtectedRoute from './components/ProtectedRoute.jsx';
 
 export default function App() {
     const [darkMode, setDarkMode] = useState(true);
@@ -20,14 +23,20 @@ export default function App() {
 
     return (
         <div className="min-h-screen">
-            <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
             <Routes>
-                <Route path="/" element={<Home />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/admin" element={<ProtectedRoute><Admin /></ProtectedRoute>} />
+                <Route path="/" element={
+                    <>
+                        <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
+                        <Home />
+                        <Footer />
+                        <ChatBox />
+                        <VideoChat />
+                    </>
+                } />
                 <Route path="*" element={<NotFound />} />
             </Routes>
-            <Footer />
-            <ChatBox />
-            <VideoChat />
         </div>
     );
 }
