@@ -7,6 +7,8 @@
 | Service | URL |
 |---------|-----|
 | 🎨 Portfolio | https://portfolio-projet-pi.vercel.app |
+| 🛡️ Dashboard Admin | https://portfolio-projet-pi.vercel.app/admin |
+| 🔐 Login Admin | https://portfolio-projet-pi.vercel.app/login |
 | ⚙️ API + Socket.IO + WebRTC | https://portfolio-projet.onrender.com |
 | 📚 Documentation Swagger | https://portfolio-projet.onrender.com/api/docs |
 | 💻 GitHub | https://github.com/Doumbouya94/portfolio-projet |
@@ -32,6 +34,7 @@ docker compose up --build
 - 🎨 Frontend : http://localhost:5173
 - ⚙️ API : http://localhost:3001/api/projects
 - 📚 Swagger : http://localhost:3001/api/docs
+- 🛡️ Admin : http://localhost:5173/admin
 
 ## 📋 Étapes du projet
 
@@ -39,6 +42,7 @@ docker compose up --build
 - ✅ **Étape 2** — Chat temps réel Socket.IO + déployé sur Render
 - ✅ **Étape 3** — API REST + JWT + SQLite + Swagger
 - ✅ **Étape 4** — Vidéo WebRTC peer-to-peer fonctionnelle
+- ✅ **Bonus** — Dashboard Admin avec live chat + notifications appels vidéo
 
 ## 🔐 Credentials admin (test)
 
