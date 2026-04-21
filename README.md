@@ -11,7 +11,9 @@
 | 🔐 Login Admin | https://portfolio-projet-pi.vercel.app/login |
 | ⚙️ API + Socket.IO + WebRTC | https://portfolio-projet.onrender.com |
 | 📚 Documentation Swagger | https://portfolio-projet.onrender.com/api/docs |
-| 💻 GitHub | https://github.com/Doumbouya94/portfolio-projet |
+| 🎥 VideoConf Pro | https://videoconferencepro-client-nine.vercel.app |
+| 💻 GitHub Portfolio | https://github.com/Doumbouya94/portfolio-projet |
+| 💻 GitHub VideoConf | https://github.com/Doumbouya94/videoconferencepro |
 
 ## 🛠️ Stack Technologique
 
@@ -43,6 +45,7 @@ docker compose up --build
 - ✅ **Étape 3** — API REST + JWT + SQLite + Swagger
 - ✅ **Étape 4** — Vidéo WebRTC peer-to-peer fonctionnelle
 - ✅ **Bonus** — Dashboard Admin avec live chat + notifications appels vidéo
+- ✅ **Bonus** — VideoConf Pro (clone Zoom/Teams) déployé
 
 ## 🔐 Credentials admin (test)
 
