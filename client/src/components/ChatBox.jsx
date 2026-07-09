@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import { MessageCircle } from 'lucide-react';
 import { useChat } from '../hooks/useChat.js';
 import ChatMessage from './ChatMessage.jsx';
 import ChatInput from './ChatInput.jsx';
@@ -90,7 +91,7 @@ export default function ChatBox() {
                         // Formulaire de connexion
                         <form onSubmit={handleJoin} className="p-6 space-y-4">
                             <p className="text-sm text-zinc-600 dark:text-zinc-400 text-center">
-                                Bonjour 👋 Je suis disponible pour discuter. Entrez votre nom pour commencer !
+                                Bonjour ! Je suis disponible pour discuter. Entrez votre nom pour commencer !
                             </p>
                             <input
                                 type="text"
@@ -115,7 +116,8 @@ export default function ChatBox() {
                             <div className="flex-1 overflow-y-auto p-3 space-y-1 max-h-72">
                                 {messages.length === 0 && (
                                     <div className="text-center py-8 text-zinc-400 text-sm">
-                                        <p>👋 Aucun message pour l'instant</p>
+                                        <MessageCircle size={22} strokeWidth={1.5} className="mx-auto mb-2 text-zinc-300 dark:text-zinc-600" />
+                                        <p>Aucun message pour l'instant</p>
                                         <p className="text-xs mt-1">Soyez le premier à écrire !</p>
                                     </div>
                                 )}

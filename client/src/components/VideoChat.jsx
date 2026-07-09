@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
+import { X, Video, Loader2, AlertTriangle } from 'lucide-react';
 import { useMedia } from '../hooks/useMedia.js';
 import { useWebRTC } from '../hooks/useWebRTC.js';
 import { useSocket } from '../hooks/useSocket.js';
@@ -169,7 +170,9 @@ export default function VideoChat() {
                                 {callState === 'inCall'  && `En appel${remoteUser ? ` avec ${remoteUser}` : ''}`}
                             </span>
                         </div>
-                        <button onClick={() => setIsOpen(false)} className="text-zinc-400 hover:text-white transition-colors">✕</button>
+                        <button onClick={() => setIsOpen(false)} className="text-zinc-400 hover:text-white transition-colors">
+                            <X size={16} strokeWidth={1.75} />
+                        </button>
                     </div>
 
                     {/* Vidéos */}
@@ -180,13 +183,13 @@ export default function VideoChat() {
                             <div className="w-full h-full flex items-center justify-center">
                                 {callState === 'idle' && (
                                     <div className="text-center text-zinc-500">
-                                        <div className="text-4xl mb-2">📹</div>
+                                        <Video size={32} strokeWidth={1.5} className="mx-auto mb-2" />
                                         <p className="text-sm">Démarrez un appel vidéo</p>
                                     </div>
                                 )}
                                 {callState === 'waiting' && (
                                     <div className="text-center text-zinc-400">
-                                        <div className="text-4xl mb-2 animate-pulse">⏳</div>
+                                        <Loader2 size={32} strokeWidth={1.5} className="mx-auto mb-2 animate-spin" />
                                         <p className="text-sm">En attente d'un participant...</p>
                                         <p className="text-xs text-zinc-500 mt-1">Partagez le lien du portfolio</p>
                                     </div>
@@ -204,8 +207,9 @@ export default function VideoChat() {
 
                     {/* Erreur */}
                     {error && (
-                        <div className="px-4 py-2 bg-red-500/10 text-red-400 text-xs">
-                            ⚠️ {error}
+                        <div className="flex items-center gap-1.5 px-4 py-2 bg-red-500/10 text-red-400 text-xs">
+                            <AlertTriangle size={13} strokeWidth={1.75} />
+                            {error}
                         </div>
                     )}
 

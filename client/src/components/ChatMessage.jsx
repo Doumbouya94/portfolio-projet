@@ -1,3 +1,5 @@
+import { CheckCheck } from 'lucide-react';
+
 export default function ChatMessage({ msg, username }) {
     const isOwn = msg.author === username;
 
@@ -25,7 +27,7 @@ export default function ChatMessage({ msg, username }) {
                     <p>{msg.message}</p>
                     <div className={`flex items-center gap-1 mt-1 ${isOwn ? 'justify-end' : 'justify-start'}`}>
                         <span className={`text-xs ${isOwn ? 'text-violet-200' : 'text-zinc-400'}`}>{msg.time}</span>
-                        {isOwn && <span className="text-xs text-violet-200">✓✓</span>}
+                        {isOwn && <CheckCheck size={13} strokeWidth={2} className="text-violet-200" />}
                     </div>
                 </div>
             </div>

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { ShieldCheck, AlertTriangle } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth.js';
 
 export default function Login() {
@@ -18,13 +19,15 @@ export default function Login() {
         <div className="min-h-screen bg-zinc-950 flex items-center justify-center px-6">
             <div className="w-full max-w-md">
                 <div className="text-center mb-8">
-                    <h1 className="text-2xl font-bold text-white mb-2">🔐 Admin Portfolio</h1>
+                    <ShieldCheck size={28} strokeWidth={1.5} className="mx-auto mb-3 text-violet-500" />
+                    <h1 className="text-2xl font-semibold text-white mb-2">Admin Portfolio</h1>
                     <p className="text-zinc-400 text-sm">Connexion administrateur</p>
                 </div>
                 <form onSubmit={handleSubmit} className="bg-zinc-900 border border-zinc-800 rounded-2xl p-8 space-y-4">
                     {error && (
-                        <div className="bg-red-500/10 border border-red-500/30 text-red-400 rounded-lg p-3 text-sm">
-                            ⚠️ {error}
+                        <div className="flex items-center gap-2 bg-red-500/10 border border-red-500/30 text-red-400 rounded-lg p-3 text-sm">
+                            <AlertTriangle size={15} strokeWidth={1.75} />
+                            {error}
                         </div>
                     )}
                     <div>

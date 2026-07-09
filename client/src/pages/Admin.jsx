@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { ShieldCheck, ArrowLeft, Video, Check, X, Mail, Users, MessageSquare, Send, RefreshCw, Inbox, ArrowRight } from 'lucide-react';
 import { useAuth } from '../hooks/useAuth.js';
 import { useSocket } from '../hooks/useSocket.js';
 
@@ -100,11 +101,14 @@ export default function Admin() {
             <header className="bg-zinc-900 border-b border-zinc-800 px-6 py-4">
                 <div className="max-w-6xl mx-auto flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                        <span className="text-xl">🛡️</span>
-                        <h1 className="text-lg font-bold text-white">Dashboard Admin</h1>
+                        <ShieldCheck size={20} strokeWidth={1.75} className="text-violet-500" />
+                        <h1 className="text-lg font-semibold text-white">Dashboard Admin</h1>
                     </div>
                     <div className="flex items-center gap-3">
-                        <a href="/" className="text-sm text-zinc-400 hover:text-white transition-colors">← Portfolio</a>
+                        <a href="/" className="inline-flex items-center gap-1.5 text-sm text-zinc-400 hover:text-white transition-colors">
+                            <ArrowLeft size={14} strokeWidth={1.75} />
+                            Portfolio
+                        </a>
                         <button onClick={handleLogout} className="bg-red-600 hover:bg-red-500 text-white text-sm font-semibold px-4 py-2 rounded-lg transition-colors">
                             Déconnexion
                         </button>
@@ -117,18 +121,20 @@ export default function Admin() {
                 {incomingCall && (
                     <div className="bg-violet-500/10 border border-violet-500/30 rounded-xl p-4 flex items-center justify-between">
                         <div className="flex items-center gap-3">
-                            <span className="text-2xl animate-pulse">📹</span>
+                            <Video size={22} strokeWidth={1.75} className="text-violet-400 animate-pulse" />
                             <div>
                                 <p className="text-white font-semibold">Appel vidéo entrant !</p>
                                 <p className="text-zinc-400 text-sm">Un visiteur souhaite vous appeler</p>
                             </div>
                         </div>
                         <div className="flex gap-3">
-                            <button onClick={() => { setIncomingCall(false); window.location.href = '/?videocall=true'; }} className="bg-green-600 hover:bg-green-500 text-white font-semibold px-4 py-2 rounded-lg transition-colors">
-                                ✅ Répondre
+                            <button onClick={() => { setIncomingCall(false); window.location.href = '/?videocall=true'; }} className="inline-flex items-center gap-1.5 bg-green-600 hover:bg-green-500 text-white font-semibold px-4 py-2 rounded-lg transition-colors">
+                                <Check size={15} strokeWidth={2} />
+                                Répondre
                             </button>
-                            <button onClick={() => setIncomingCall(false)} className="bg-red-600 hover:bg-red-500 text-white font-semibold px-4 py-2 rounded-lg transition-colors">
-                                ✕ Ignorer
+                            <button onClick={() => setIncomingCall(false)} className="inline-flex items-center gap-1.5 bg-red-600 hover:bg-red-500 text-white font-semibold px-4 py-2 rounded-lg transition-colors">
+                                <X size={15} strokeWidth={2} />
+                                Ignorer
                             </button>
                         </div>
                     </div>
@@ -136,12 +142,12 @@ export default function Admin() {
 
                 <div className="grid grid-cols-3 gap-4">
                     {[
-                        { icon: '📧', label: 'Messages reçus', value: messages.length, color: 'text-violet-400' },
-                        { icon: '📹', label: 'Appels vidéo', value: incomingCall ? '1 en attente' : '0', color: 'text-green-400' },
-                        { icon: '👥', label: 'Connectés', value: rooms.reduce((acc, r) => acc + r.count, 0), color: 'text-blue-400' },
+                        { icon: Mail, label: 'Messages reçus', value: messages.length, color: 'text-violet-400' },
+                        { icon: Video, label: 'Appels vidéo', value: incomingCall ? '1 en attente' : '0', color: 'text-green-400' },
+                        { icon: Users, label: 'Connectés', value: rooms.reduce((acc, r) => acc + r.count, 0), color: 'text-blue-400' },
                     ].map(stat => (
                         <div key={stat.label} className="bg-zinc-900 border border-zinc-800 rounded-xl p-4 text-center">
-                            <div className="text-2xl mb-1">{stat.icon}</div>
+                            <stat.icon size={22} strokeWidth={1.5} className="mx-auto mb-2 text-zinc-500" />
                             <div className={`text-xl font-bold ${stat.color}`}>{stat.value}</div>
                             <div className="text-xs text-zinc-500 mt-1">{stat.label}</div>
                         </div>
@@ -153,7 +159,10 @@ export default function Admin() {
                     {/* Live Chat */}
                     <div className="bg-zinc-900 border border-zinc-800 rounded-xl flex flex-col h-96">
                         <div className="px-4 py-3 border-b border-zinc-800">
-                            <h2 className="font-bold text-white text-lg mb-2">💬 Live Chat</h2>
+                            <h2 className="font-semibold text-white text-lg mb-2 flex items-center gap-2">
+                                <MessageSquare size={18} strokeWidth={1.75} className="text-violet-400" />
+                                Live Chat
+                            </h2>
                             <div className="flex gap-2">
                                 {rooms.map(room => (
                                     <button
@@ -198,9 +207,9 @@ export default function Admin() {
                             />
                             <button
                                 onClick={sendMessage}
-                                className="bg-violet-600 hover:bg-violet-500 text-white px-4 py-2 rounded-lg text-sm transition-colors"
+                                className="bg-violet-600 hover:bg-violet-500 text-white px-4 py-2 rounded-lg text-sm transition-colors flex items-center justify-center"
                             >
-                                ➤
+                                <Send size={15} strokeWidth={1.75} />
                             </button>
                         </div>
                     </div>
@@ -208,9 +217,13 @@ export default function Admin() {
                     {/* Messages de contact */}
                     <div className="bg-zinc-900 border border-zinc-800 rounded-xl p-4 h-96 flex flex-col">
                         <div className="flex items-center justify-between mb-3">
-                            <h2 className="font-bold text-white text-lg">📧 Messages de contact</h2>
-                            <button onClick={fetchMessages} className="text-xs text-violet-400 hover:text-violet-300 transition-colors">
-                                🔄 Actualiser
+                            <h2 className="font-semibold text-white text-lg flex items-center gap-2">
+                                <Mail size={18} strokeWidth={1.75} className="text-violet-400" />
+                                Messages de contact
+                            </h2>
+                            <button onClick={fetchMessages} className="inline-flex items-center gap-1.5 text-xs text-violet-400 hover:text-violet-300 transition-colors">
+                                <RefreshCw size={13} strokeWidth={1.75} />
+                                Actualiser
                             </button>
                         </div>
 
@@ -221,7 +234,7 @@ export default function Admin() {
                                 </div>
                             ) : messages.length === 0 ? (
                                 <div className="text-center py-10 text-zinc-500">
-                                    <div className="text-3xl mb-2">📭</div>
+                                    <Inbox size={26} strokeWidth={1.5} className="mx-auto mb-2 text-zinc-600" />
                                     <p>Aucun message pour l'instant</p>
                                 </div>
                             ) : (
@@ -242,8 +255,9 @@ export default function Admin() {
                                             </span>
                                         </div>
                                         <p className="text-xs text-zinc-300">{msg.message}</p>
-                                        <a href={`mailto:${msg.email}`} className="text-xs text-violet-400 hover:text-violet-300 transition-colors">
-                                            → Répondre
+                                        <a href={`mailto:${msg.email}`} className="inline-flex items-center gap-1 text-xs text-violet-400 hover:text-violet-300 transition-colors">
+                                            Répondre
+                                            <ArrowRight size={11} strokeWidth={2} />
                                         </a>
                                     </div>
                                 ))
